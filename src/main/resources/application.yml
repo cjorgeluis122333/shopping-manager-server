@@ -1,12 +1,13 @@
 spring:
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:shopping_db}
-    username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:password}
+#    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:shopping_db} #-> execute form container else
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:9008}/${DB_NAME:shopping_manager_db}
+    username: ${DB_USER:jcvidal}        # ← por defecto: jcvidal
+    password: ${DB_PASSWORD:123456}     # ← por defecto: 123456
     driver-class-name: org.postgresql.Driver
   jpa:
-    hibernate:
-      ddl-auto: update
+#    hibernate:
+#      ddl-auto: update
     show-sql: true
     properties:
       hibernate:

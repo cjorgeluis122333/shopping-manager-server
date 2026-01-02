@@ -9,11 +9,12 @@ services:
       POSTGRES_USER: jcvidal
       POSTGRES_PASSWORD: 123456
     ports:
-      - "9003:5432"
+      - "9008:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:          # ← añade esto
+      - shopping-net
   app:
     build:
       context: .
@@ -23,12 +24,17 @@ services:
       - "9093:8080"
     environment:
       DB_HOST: db
-      DB_PORT: 9003
+      DB_PORT: 9008 #5432 #->If you execute from the container. And update the application.yml
       DB_NAME: shopping_manager_db
       DB_USER: jcvidal
       DB_PASSWORD: 123456
     depends_on:
       - db
-
+    networks:          # ← añade esto
+      - shopping-net
 volumes:
   postgres_data:
+
+networks:            # ← define la red aquí
+  shopping-net:
+    name: shopping-net
