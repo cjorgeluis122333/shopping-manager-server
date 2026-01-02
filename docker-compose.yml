@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:17.5
+    container_name: shopping-manager-db
+    environment:
+      POSTGRES_DB: shopping_manager_db
+      POSTGRES_USER: jcvidal
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "9003:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: shopping-app
+    ports:
+      - "9093:8080"
+    environment:
+      DB_HOST: db
+      DB_PORT: 9003
+      DB_NAME: shopping_manager_db
+      DB_USER: jcvidal
+      DB_PASSWORD: 123456
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
