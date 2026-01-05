@@ -1,7 +1,7 @@
 package com.shopping.manager.controller;
 
-import com.shopping.manager.entity.Producto;
-import com.shopping.manager.service.ProductoService;
+import com.shopping.manager.entity.Tienda;
+import com.shopping.manager.service.TiendaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,34 +9,34 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/productos")
+@RequestMapping("/api/tiendas")
 @CrossOrigin(origins = "*", maxAge = 3600)
-public class ProductoController {
+public class TiendaController {
 
     @Autowired
-    private ProductoService productoService;
+    private TiendaService tiendaService;
 
     @GetMapping
-    public List<Producto> getAll() {
-        return productoService.findAll();
+    public ResponseEntity<List<Tienda>> getAll() {
+        return ResponseEntity.ok(tiendaService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Producto> getById(@PathVariable Long id) {
-        return productoService.findById(id)
+    public ResponseEntity<Tienda> getById(@PathVariable Long id) {
+        return tiendaService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Producto create(@RequestBody Producto producto) {
-        return productoService.save(producto);
+    public ResponseEntity<Tienda> create(@RequestBody Tienda tienda) {
+        return ResponseEntity.ok(tiendaService.save(tienda));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Producto> update(@PathVariable Long id, @RequestBody Producto producto) {
+    public ResponseEntity<Tienda> update(@PathVariable Long id, @RequestBody Tienda tienda) {
         try {
-            return ResponseEntity.ok(productoService.update(id, producto));
+            return ResponseEntity.ok(tiendaService.update(id, tienda));
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
@@ -44,7 +44,7 @@ public class ProductoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        productoService.deleteById(id);
+        tiendaService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

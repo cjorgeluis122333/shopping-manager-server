@@ -29,4 +29,26 @@ public class ProductoService {
     public void deleteById(Long id) {
         productoRepository.deleteById(id);
     }
+
+    public Producto update(Long id, Producto producto) {
+        return productoRepository.findById(id)
+                .map(existing -> {
+                    existing.setNombreProducto(producto.getNombreProducto());
+                    existing.setCategoria(producto.getCategoria());
+                    existing.setPrecioCompra(producto.getPrecioCompra());
+                    existing.setPrecioVenta(producto.getPrecioVenta());
+                    existing.setStockActual(producto.getStockActual());
+                    existing.setStockMinimo(producto.getStockMinimo());
+                    existing.setUrlImagen(producto.getUrlImagen());
+                    existing.setCodigoBarras(producto.getCodigoBarras());
+                    return productoRepository.save(existing);
+                })
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+    }
+
+    public List<Producto> findByTienda(Long tiendaId) {
+        // Este método requeriría una relación directa entre Producto y Tienda
+        // Por ahora retornamos todos los productos
+        return productoRepository.findAll();
+    }
 }
