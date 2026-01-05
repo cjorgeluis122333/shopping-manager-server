@@ -110,8 +110,8 @@ public class ReporteService {
         for (Venta venta : ventas) {
             Map<String, Object> ventaMap = new HashMap<>();
             ventaMap.put("id", venta.getId());
-            ventaMap.put("fecha", venta.getCreatAt());
-            ventaMap.put("producto", venta.getProducto().getNombreProducto());
+            ventaMap.put("fecha", venta.getCreateAt());
+            ventaMap.put("producto", venta.getProducto().getNombre());
             ventaMap.put("cantidad", venta.getCantidad());
             ventaMap.put("precioFinal", venta.getPrecioFinal());
             ventaMap.put("total", venta.getTotalVenta());

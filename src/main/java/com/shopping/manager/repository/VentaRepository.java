@@ -13,7 +13,7 @@ import java.util.List;
 public interface VentaRepository extends JpaRepository<Venta, Long> {
     List<Venta> findByTiendaId(Long tiendaId);
     
-    @Query("SELECT v FROM Venta v WHERE v.tienda.id = :tiendaId AND v.creatAt BETWEEN :startDate AND :endDate")
+    @Query("SELECT v FROM Venta v WHERE v.tienda.id = :tiendaId AND v.createAt BETWEEN :startDate AND :endDate")
     List<Venta> findByTiendaIdAndDateRange(
             @Param("tiendaId") Long tiendaId,
             @Param("startDate") LocalDateTime startDate,

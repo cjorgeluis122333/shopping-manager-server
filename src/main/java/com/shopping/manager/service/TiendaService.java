@@ -23,7 +23,7 @@ public class TiendaService {
     }
 
     public Optional<Tienda> findByNombreTienda(String nombreTienda) {
-        return tiendaRepository.findByNombreTienda(nombreTienda);
+        return tiendaRepository.findTiendaByNombre(nombreTienda);
     }
 
     public Tienda save(Tienda tienda) {
@@ -37,7 +37,7 @@ public class TiendaService {
     public Tienda update(Long id, Tienda tienda) {
         return tiendaRepository.findById(id)
                 .map(existing -> {
-                    existing.setNombreTienda(tienda.getNombreTienda());
+                    existing.setNombre(tienda.getNombre());
                     existing.setTelefono(tienda.getTelefono());
                     existing.setDireccion(tienda.getDireccion());
                     existing.setUrlFotoLocal(tienda.getUrlFotoLocal());

@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface TiendaRepository extends JpaRepository<Tienda, Long> {
-    Optional<Tienda> findByNombreTienda(String nombreTienda);
+    Optional<Tienda> findTiendaByNombre(String nombreTienda);
     List<Tienda> findAll();
 }
