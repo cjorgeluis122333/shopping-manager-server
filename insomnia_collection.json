@@ -1,0 +1,229 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2024-01-05T15:00:00.000Z",
+  "__export_source": "insomnia.desktop:v2023.5.0",
+  "resources": [
+    {
+      "_id": "wrk_shopping_manager",
+      "_type": "workspace",
+      "name": "Shopping Manager API",
+      "description": "Colección de endpoints para pruebas del servidor Shopping Manager",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_base",
+      "_type": "environment",
+      "parentId": "wrk_shopping_manager",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8080/api",
+        "token": ""
+      }
+    },
+    {
+      "_id": "fld_auth",
+      "_type": "request_group",
+      "parentId": "wrk_shopping_manager",
+      "name": "Autenticación"
+    },
+    {
+      "_id": "req_login",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Login",
+      "method": "POST",
+      "url": "{{ base_url }}/auth/login",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"username\": \"jperez\", \"password\": \"password123\"}"
+      }
+    },
+    {
+      "_id": "req_register",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Register",
+      "method": "POST",
+      "url": "{{ base_url }}/auth/register",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"username\": \"nuevo_usuario\", \"password\": \"password123\", \"nombreCompleto\": \"Nuevo Usuario\", \"rol\": \"Trabajador\", \"idTienda\": 1}"
+      }
+    },
+    {
+      "_id": "req_logout",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Logout",
+      "method": "POST",
+      "url": "{{ base_url }}/auth/logout",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_refresh_token",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Refresh Token",
+      "method": "POST",
+      "url": "{{ base_url }}/auth/refresh-token",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"token\": \"{{ token }}\"}"
+      }
+    },
+    {
+      "_id": "fld_tiendas",
+      "_type": "request_group",
+      "parentId": "wrk_shopping_manager",
+      "name": "Tiendas"
+    },
+    {
+      "_id": "req_get_tiendas",
+      "_type": "request",
+      "parentId": "fld_tiendas",
+      "name": "Listar Tiendas",
+      "method": "GET",
+      "url": "{{ base_url }}/tiendas"
+    },
+    {
+      "_id": "req_get_tienda_id",
+      "_type": "request",
+      "parentId": "fld_tiendas",
+      "name": "Obtener Tienda por ID",
+      "method": "GET",
+      "url": "{{ base_url }}/tiendas/1"
+    },
+    {
+      "_id": "req_create_tienda",
+      "_type": "request",
+      "parentId": "fld_tiendas",
+      "name": "Crear Tienda",
+      "method": "POST",
+      "url": "{{ base_url }}/tiendas",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"nombreTienda\": \"Nueva Tienda\", \"telefono\": \"555666777\", \"direccion\": \"Av. Nueva 123\", \"urlFotoLocal\": \"https://example.com/foto.jpg\"}"
+      }
+    },
+    {
+      "_id": "fld_productos",
+      "_type": "request_group",
+      "parentId": "wrk_shopping_manager",
+      "name": "Productos"
+    },
+    {
+      "_id": "req_get_productos",
+      "_type": "request",
+      "parentId": "fld_productos",
+      "name": "Listar Productos",
+      "method": "GET",
+      "url": "{{ base_url }}/productos"
+    },
+    {
+      "_id": "req_get_producto_id",
+      "_type": "request",
+      "parentId": "fld_productos",
+      "name": "Obtener Producto por ID",
+      "method": "GET",
+      "url": "{{ base_url }}/productos/1"
+    },
+    {
+      "_id": "req_create_producto",
+      "_type": "request",
+      "parentId": "fld_productos",
+      "name": "Crear Producto",
+      "method": "POST",
+      "url": "{{ base_url }}/productos",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"codigoBarras\": \"7501001234571\", \"nombreProducto\": \"Nuevo Producto\", \"categoria\": \"Electrónica\", \"precioCompra\": 100.00, \"precioVenta\": 150.00, \"stockActual\": 20, \"stockMinimo\": 5}"
+      }
+    },
+    {
+      "_id": "fld_ventas",
+      "_type": "request_group",
+      "parentId": "wrk_shopping_manager",
+      "name": "Ventas"
+    },
+    {
+      "_id": "req_get_ventas",
+      "_type": "request",
+      "parentId": "fld_ventas",
+      "name": "Listar Ventas",
+      "method": "GET",
+      "url": "{{ base_url }}/ventas",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_get_ventas_tienda",
+      "_type": "request",
+      "parentId": "fld_ventas",
+      "name": "Ventas por Tienda",
+      "method": "GET",
+      "url": "{{ base_url }}/ventas/tienda/1",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        }
+      ]
+    },
+    {
+      "_id": "fld_reportes",
+      "_type": "request_group",
+      "parentId": "wrk_shopping_manager",
+      "name": "Reportes"
+    },
+    {
+      "_id": "req_reporte_real",
+      "_type": "request",
+      "parentId": "fld_reportes",
+      "name": "Reporte Real",
+      "method": "GET",
+      "url": "{{ base_url }}/reportes/tienda/1/real?startDate=2024-01-01T00:00:00&endDate=2024-01-31T23:59:59",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_reporte_falso",
+      "_type": "request",
+      "parentId": "fld_reportes",
+      "name": "Reporte Falso (50% inflación)",
+      "method": "GET",
+      "url": "{{ base_url }}/reportes/tienda/1/falso?startDate=2024-01-01T00:00:00&endDate=2024-01-31T23:59:59&inflacionPorcentaje=50",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ token }}"
+        }
+      ]
+    }
+  ]
+}
