@@ -1,5 +1,6 @@
 package com.shopping.manager.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -25,6 +26,7 @@ public class Empleado {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tienda", nullable = false)
+    @JsonBackReference
     private Tienda tienda;
 
     @Column(unique = true, nullable = false, length = 50)

@@ -1,5 +1,6 @@
 package com.shopping.manager.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -43,8 +44,10 @@ public class Tienda {
     private LocalDateTime updateAt;
 
     @OneToMany(mappedBy = "tienda", cascade = CascadeType.ALL)
+    @JsonManagedReference  //Infinity cicle prebent
     private List<Contacto> contactos;
 
-    @OneToMany(mappedBy = "tienda")
+    @OneToMany(mappedBy = "tienda",fetch = FetchType.LAZY)
+    @JsonManagedReference  //Infinity cicle prebent
     private List<Empleado> empleados;
 }

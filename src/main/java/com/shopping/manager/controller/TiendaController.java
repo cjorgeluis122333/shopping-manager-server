@@ -16,7 +16,7 @@ public class TiendaController {
     @Autowired
     private TiendaService tiendaService;
 
-    @GetMapping
+    @GetMapping({"/",""})
     public ResponseEntity<List<Tienda>> getAll() {
         return ResponseEntity.ok(tiendaService.findAll());
     }
